@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+background-image:url("registerartbg.jpg");
+background-size:cover;
+background-repeat:no repeat;
+}
+
+    </style>
+    <title>Registration Form</title>
+</head>
+<body>
+
+<center>
+    <h1>ART ILLUSION ACADEMY</h1>
+    <h3>Registration Form</h3>
+
+    <form id="registrationForm">
+
+        <table>
+
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Age</td>
+                <td>
+                    <input type="number" id="age" name="age" placeholder="Enter your age" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="reset" value="Reset">
+                </td>
+
+                <td>
+                    <input type="submit" value="Register">
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+    <br>
+
+    <a href="index.html">Home Page</a>
+
+</center>
+
+<script>
+document.getElementById("registrationForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const formData = {
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        email: document.getElementById("email").value,
+        gender: document.getElementById("gender").value
+    };
+
+    fetch("http://localhost:3000/register", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(formData)
+
+    })
+
+    .then(response => response.text())
+
+    .then(data => {
+        alert(data);
+        document.getElementById("registrationForm").reset();
+    })
+
+    .catch(error => {
+        console.error(error);
+        alert("Error connecting to server");
+    });
+
+});
+</script>
+
+</body>
+</html>
